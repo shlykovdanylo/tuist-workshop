@@ -2,9 +2,9 @@ import UIKit
 
 class SecondViewController: UIViewController {
     
-    private var mainButton: UIButton = {
+    private var backButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Go to MainVC", for: .normal)
+        button.setTitle("Go Back", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
@@ -21,7 +21,7 @@ class SecondViewController: UIViewController {
         
         view.backgroundColor = .yellow
         
-        let stack = UIStackView(arrangedSubviews: [mainButton, thirdButton])
+        let stack = UIStackView(arrangedSubviews: [backButton, thirdButton])
         stack.axis = .vertical
         stack.distribution = .fillEqually
         
@@ -32,14 +32,12 @@ class SecondViewController: UIViewController {
             stack.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
         
-        mainButton.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         thirdButton.addTarget(self, action: #selector(thirdButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func mainButtonTapped() {
-        let secondVC = MainViewController()
-        secondVC.modalPresentationStyle = .fullScreen
-        present(secondVC, animated: true)
+    @objc private func backButtonTapped() {
+        dismiss(animated: true)
     }
     
     @objc private func thirdButtonTapped() {

@@ -2,29 +2,48 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    private var button: UIButton = {
+    private var secondButton: UIButton = {
         let button = UIButton()
         button.setTitle("Go to SecondVC", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         return button
     }()
-
+    
+    private var thirdButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Go to ThirdVC", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .blue
-
-        button.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(button)
+        
+        let stack = UIStackView(arrangedSubviews: [secondButton, thirdButton])
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stack)
         NSLayoutConstraint.activate([
-            self.button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+            stack.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
         
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        secondButton.addTarget(self, action: #selector(secondButtonTapped), for: .touchUpInside)
+        thirdButton.addTarget(self, action: #selector(thirdButtonTapped), for: .touchUpInside)
     }
-
-    @objc private func buttonTapped() {
+    
+    @objc private func secondButtonTapped() {
         let secondVC = SecondViewController()
+        secondVC.modalPresentationStyle = .fullScreen
+        present(secondVC, animated: true)
+    }
+    
+    @objc private func thirdButtonTapped() {
+        let secondVC = ThirdViewController()
         secondVC.modalPresentationStyle = .fullScreen
         present(secondVC, animated: true)
     }
